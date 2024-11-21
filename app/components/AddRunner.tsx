@@ -43,16 +43,15 @@ function AddRunner() {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault()
-      const newRunner ={
-        firstname,
-        lastname,
-        sexe,
-        birthday,
-        category,
-        shirtSize: 1,
-        course: 3,
-        mealbefore,
-        mealafter,
+      const newRunner = {
+        firstname: firstname,
+          lastname : lastname,
+          sexe: sexe,
+          birth_date: birthday,
+          shirt_size: 1,
+          course: 3,
+          meal_before: mealbefore,
+          meal_after: mealafter,
       }
       await dispatch(insertRunner({
         data :newRunner

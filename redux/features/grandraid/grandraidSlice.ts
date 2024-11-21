@@ -19,17 +19,17 @@ interface meal {
   name: string
 }
 
+//TODO rename avec nom de variable de django
 interface runner {
   id?: number
   firstname: string;
   lastname: string;
   sexe: string;
-  birthday: string;
-  category: string;
-  shirtSize: number;
+  birth_date: string;
+  shirt_size: number;
   course: number;
-  mealbefore: boolean;
-  mealafter: boolean;
+  meal_before: boolean;
+  meal_after: boolean;
   total?: number;
 }
 
