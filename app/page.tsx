@@ -12,7 +12,9 @@ export default function Home() {
             </Link>
           </div>
           <div className=" border border-black rounded p-2">
-            App XXX
+            <Link href='/lesbases'>
+              Les Bases
+            </Link>
           </div>
           <div className=" border border-black rounded p-2">
             App XXX

@@ -11,8 +11,6 @@ export default function Page() {
 
   const dispatch = useAppDispatch()
 
-
-
   useEffect(() => {
     const getDatas = async () => {
       await dispatch(fetchAllCourses())
@@ -73,7 +71,6 @@ export default function Page() {
         <div className=" flex flex-col gap-4">
           <h2 className=" underline underline-offset-2 font-lg">Liste des coureurs</h2>
 
-          
           <div>
             <div className="grid grid-cols-10 bg-gray-200 p-1">
               <p>

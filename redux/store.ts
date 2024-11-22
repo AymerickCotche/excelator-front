@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import grandraidSlice from './features/grandraid/grandraidSlice';
+import lesbasesSlice from './features/lesbases/lesbasesSlice';
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      grandraid: grandraidSlice
+      grandraid: grandraidSlice,
+      lesbases: lesbasesSlice
     },
   })
 }
