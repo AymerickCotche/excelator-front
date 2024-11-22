@@ -1,26 +1,25 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
-interface size {
+interface Size {
   id?: number
   name: string
   symbol: string
 }
 
-interface course {
+interface Course {
   id?: number
   name: string
   price: number
 }
 
-interface meal {
+interface Meal {
   id?: number
   type: string
   prix: number
   name: string
 }
 
-//TODO rename avec nom de variable de django
-interface runner {
+export interface Runner {
   id?: number
   firstname: string;
   lastname: string;
@@ -33,38 +32,52 @@ interface runner {
   total?: number;
 }
 
+interface RunnerCategory {
+  id?: number
+  start_year : number
+  end_year :number
+  category : string
+  created? : string
+}
+
 export interface GrandraidState {
   openModalAddRunner: boolean;
+  openModalEditRunner: boolean;
   test: string;
   runnerForm: {
     firstname: string;
     lastname: string;
     sexe: string;
-    birthday: string;
-    category: string;
-    shirtSize: string;
+    birth_date: string;
+    shirt_size: string;
     course: string;
-    mealbefore: boolean;
-    mealafter: boolean;
+    meal_before: boolean;
+    meal_after: boolean;
     total: number;
   }
   runners: {
-    data: runner[]
+    data: Runner[]
+    selectedRunner: Runner
     error: boolean
     loading: boolean
   }
   meals: {
-    data: meal[]
+    data: Meal[]
     error: boolean
     loading: boolean
   }
   courses: {
-    data: course[]
+    data: Course[]
     error: boolean
     loading: boolean
   }
   sizes: {
-    data: size[]
+    data: Size[]
+    error: boolean
+    loading: boolean
+  }
+  runnerCategories: {
+    data: RunnerCategory[]
     error: boolean
     loading: boolean
   }
@@ -72,21 +85,33 @@ export interface GrandraidState {
 
 const initialState: GrandraidState = {
   openModalAddRunner: false,
+  openModalEditRunner: false,
   test: "yo",
   runnerForm: {
     firstname: "",
     lastname: "",
-    sexe: "",
-    birthday: "",
-    category: "",
-    shirtSize: "",
-    course: "",
-    mealbefore: false,
-    mealafter: false,
+    sexe: "H",
+    birth_date: "",
+    shirt_size: "1",
+    course: "1",
+    meal_before: false,
+    meal_after: false,
     total: 0,
   },
   runners: {
     data: [],
+    selectedRunner: {
+      id: 0,
+      firstname: "",
+      lastname: "",
+      sexe: "",
+      birth_date: "",
+      shirt_size: 0,
+      course: 0,
+      meal_before: false,
+      meal_after: false,
+      total: 0,
+    },
     error: false,
     loading: false,
   },
@@ -104,6 +129,11 @@ const initialState: GrandraidState = {
     data: [],
     error: false,
     loading: false,
+  },
+  runnerCategories: {
+    data: [],
+    error: false,
+    loading: false
   }
 }
 
@@ -114,6 +144,9 @@ export const grandraidSlice = createSlice({
     toggleAddRunner(state, action: PayloadAction<boolean>) {
       state.openModalAddRunner = action.payload;
     },
+    toggleEditRunner(state, action: PayloadAction<boolean>) {
+      state.openModalEditRunner = action.payload;
+    },
     setRunnerForm: <K extends keyof GrandraidState["runnerForm"]>(
       state: GrandraidState,
       action: PayloadAction<{ field: K; value: GrandraidState["runnerForm"][K] }>
@@ -121,11 +154,24 @@ export const grandraidSlice = createSlice({
       const { field, value } = action.payload;
       state.runnerForm[field] = value; // On accède ici à runnerForm correctement
     },
+    setEditRunnerForm: <K extends keyof GrandraidState["runners"]["selectedRunner"]>(
+      state: GrandraidState,
+      action: PayloadAction<{ field: K; value: GrandraidState["runners"]["selectedRunner"][K] }>
+    ) => {
+      const { field, value } = action.payload;
+      state.runners.selectedRunner[field] = value; // On accède ici à runnerForm correctement
+    },
     resetRunnerForm(state) {
       state.runnerForm = initialState.runnerForm
     },
     setRunnerformTotal(state, action) {
       state.runnerForm.total = action.payload
+    },
+    setRunnerEditFormTotal(state, action) {
+      state.runners.selectedRunner.total = action.payload
+    },
+    setSelectedRunner(state, action) {
+      state.runners.selectedRunner = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -174,10 +220,58 @@ export const grandraidSlice = createSlice({
       .addCase(fetchAllRunners.pending, (state, action) => {
         state.runners.loading = true
       })
+      .addCase(fetchAllRunnerCategories.fulfilled, (state, action) => {
+        state.runnerCategories.loading = false
+        state.runnerCategories.data = action.payload
+      })
+      .addCase(fetchAllRunnerCategories.rejected, (state, action) => {
+        state.runners.loading = false
+        state.runnerCategories.error = true
+      })
+      .addCase(fetchAllRunnerCategories.pending, (state, action) => {
+        state.runnerCategories.loading = true
+      })
+      .addCase(insertRunner.fulfilled, (state, action) => {
+        state.runners.loading = false
+        state.runners.data.push(action.payload)
+      })
+      .addCase(insertRunner.rejected, (state, action) => {
+        state.runners.loading = false
+        state.runners.error = true
+      })
+      .addCase(insertRunner.pending, (state, action) => {
+        state.runners.loading = true
+      })
+      .addCase(deleteRunner.fulfilled, (state, action) => {
+        state.runners.loading = false
+        state.runners.data = state.runners.data.filter(runner => runner.id !== action.payload)
+
+      })
+      .addCase(deleteRunner.rejected, (state, action) => {
+        state.runners.loading = false
+        state.runners.error = true
+      })
+      .addCase(deleteRunner.pending, (state, action) => {
+        state.runners.loading = true
+      })
+      .addCase(editRunner.fulfilled, (state, action) => {
+        state.runners.loading = false
+        state.runners.data = state.runners.data.map(runner =>
+          runner.id === action.payload.id ? { ...action.payload } : runner
+        )
+
+      })
+      .addCase(editRunner.rejected, (state, action) => {
+        state.runners.loading = false
+        state.runners.error = true
+      })
+      .addCase(editRunner.pending, (state, action) => {
+        state.runners.loading = true
+      })
   }
 })
 
-export const { toggleAddRunner, setRunnerForm, resetRunnerForm, setRunnerformTotal } = grandraidSlice.actions
+export const { toggleAddRunner, setRunnerForm, resetRunnerForm, setRunnerformTotal, toggleEditRunner, setSelectedRunner, setEditRunnerForm, setRunnerEditFormTotal } = grandraidSlice.actions
 
 export const fetchAllRunners = createAsyncThunk(
   'grandraid/fetchAllRunners',
@@ -211,12 +305,47 @@ export const fetchAllSizes = createAsyncThunk(
   }
 )
 
+export const fetchAllRunnerCategories = createAsyncThunk(
+  'grandraid/fetchAllRunnerCategories',
+  async () => {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/grandraid/runnercategories/`)
+      return (await response.json())
+  }
+)
+
 export const insertRunner = createAsyncThunk(
   'grandraid/insertRunner',
-  async ({data} : {data: runner}) => {
+  async ({newRunner}: {newRunner : Runner}) => {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/grandraid/runners/`, {
         method:'POST',
-        body: JSON.stringify(data),
+        body: JSON.stringify(newRunner),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      return (await response.json())
+  }
+)
+
+export const deleteRunner = createAsyncThunk(
+  'grandraid/deleteRunner',
+  async ({id}: {id : number}) => {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/grandraid/runners/${id}/`, {
+        method:'DELETE',
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      return id
+  }
+)
+
+export const editRunner = createAsyncThunk(
+  'grandraid/editRunner',
+  async ({editedRunner}: {editedRunner : Runner}) => {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/grandraid/runners/${editedRunner.id}/`, {
+        method:'PUT',
+        body: JSON.stringify(editedRunner),
         headers: {
           "Content-Type": "application/json",
         },

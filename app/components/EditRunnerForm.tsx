@@ -1,14 +1,13 @@
-import { GrandraidState, insertRunner, resetRunnerForm, setRunnerForm, setRunnerformTotal, toggleAddRunner } from '@/redux/features/grandraid/grandraidSlice'
+import { editRunner, GrandraidState, insertRunner, resetRunnerForm, setEditRunnerForm, setRunnerEditFormTotal, setRunnerForm, setRunnerformTotal, toggleEditRunner } from '@/redux/features/grandraid/grandraidSlice'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import React, { useEffect } from 'react'
 
-function AddRunner() {
+function EditRunnerForm() {
 
     const dispatch = useAppDispatch()
 
-    const { test } = useAppSelector(state => state.grandraid)
-    const { runnerForm } = useAppSelector(state => state.grandraid)
-    const { firstname, lastname, birth_date, meal_before, meal_after, sexe, course, shirt_size, total } = useAppSelector(state => state.grandraid.runnerForm)
+    const { selectedRunner } = useAppSelector(state => state.grandraid.runners)
+    const { firstname, lastname, birth_date, meal_before, meal_after, sexe, course, shirt_size, total } = useAppSelector(state => state.grandraid.runners.selectedRunner)
     const { courses } = useAppSelector(state => state.grandraid)
     const { meals } = useAppSelector(state => state.grandraid)
     const { runners } = useAppSelector(state => state.grandraid)
@@ -16,18 +15,18 @@ function AddRunner() {
 
     useEffect(() => {
       const getTotal = () => {
-        const coursePrice = (courses.data.find(course => course.id === Number(runnerForm.course)))?.price
+        const coursePrice = (courses.data.find(course => course.id === Number(selectedRunner.course)))?.price
         const mealBeforePrice = meal_before ? (meals.data.find(meal => meal.type === 'before'))?.prix : 0
         const mealAfterPrice = meal_after ? (meals.data.find(meal => meal.type === 'after'))?.prix : 0
         const totalPrice = (coursePrice ?  coursePrice : 0) + (mealBeforePrice ? mealBeforePrice : 0) + (mealAfterPrice ? mealAfterPrice : 0)
-        dispatch(setRunnerformTotal(totalPrice))
+        dispatch(setRunnerEditFormTotal(totalPrice))
       }
       getTotal()
-    }, [runnerForm.course, runnerForm.meal_before, runnerForm.meal_after])
+    }, [selectedRunner.course, selectedRunner.meal_before, selectedRunner.meal_after])
 
     const handleClickCloseModal = () => {
       dispatch(resetRunnerForm())
-      dispatch(toggleAddRunner(false))
+      dispatch(toggleEditRunner(false))
     }
 
     const handleChangeValue = (
@@ -41,24 +40,13 @@ function AddRunner() {
           ? e.target.checked
           : value;
     
-      dispatch(setRunnerForm({ field: name as keyof typeof runnerForm, value: parsedValue }));
+      dispatch(setEditRunnerForm({ field: name as keyof typeof selectedRunner, value: parsedValue }));
     };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault()
-      const newRunner = {
-        firstname,
-        lastname,
-        sexe,
-        birth_date,
-        shirt_size: Number(shirt_size),
-        course: Number(course),
-        meal_before,
-        meal_after,
-      }
-      console.log(newRunner);
-      await dispatch(insertRunner({newRunner}))
-      dispatch(toggleAddRunner(false))
+      await dispatch(editRunner({editedRunner: selectedRunner}))
+      dispatch(toggleEditRunner(false))
     }
 
     return (
@@ -214,4 +202,4 @@ function AddRunner() {
     )
 }
 
-export default AddRunner
+export default EditRunnerForm
