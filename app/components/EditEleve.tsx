@@ -1,4 +1,4 @@
-import { setEleveFormAgeEdit, setEleveFormHasPaidEdit, setEleveFormPaidMonthEdit, setEleveFormPaidValueEdit, setEleveFormNameEdit, toggleOpenModal, setEleveFormNoteEdit, setEleveFormSexeEdit, setSelectedEleve, toggleOpenModalEdit, editEleve } from '@/redux/features/eleves/elevesSlice'
+import { setEleveFormAgeEdit, setEleveFormHasPaidEdit, setEleveFormPaidMonthEdit, setEleveFormPaidValueEdit, setEleveFormNameEdit, setEleveFormNoteEdit, setEleveFormSexeEdit, toggleOpenModalEdit, editEleve } from '@/redux/features/eleves/elevesSlice'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import React from 'react'
 
@@ -43,7 +43,7 @@ function EditEleve() {
       dispatch(setEleveFormPaidValueEdit(value));
     }
 
-    const handleChangeHasPaid = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangeHasPaid = () => {
       dispatch(setEleveFormHasPaidEdit(!has_paid));
     }
 

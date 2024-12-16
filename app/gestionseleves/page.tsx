@@ -3,11 +3,9 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { useEffect } from "react"
 import Image from "next/image"
-import AddCountry from "../components/AddCountry"
-import { deleteEleve, Eleve, EleveForm, fetchAllEleve, setSelectedEleve, toggleOpenModal, toggleOpenModalEdit } from "@/redux/features/eleves/elevesSlice"
+import { deleteEleve, Eleve, fetchAllEleve, setSelectedEleve, toggleOpenModal, toggleOpenModalEdit } from "@/redux/features/eleves/elevesSlice"
 import AddEleve from "../components/AddEleve"
 import EditEleve from "../components/EditEleve"
-import Link from "next/link"
 
 export default function Page() {
 
@@ -21,7 +19,7 @@ export default function Page() {
   }, [])
   
   const { eleves } = useAppSelector(state => state.eleves)
-  const { data, form, total } = eleves
+  const { data, form } = eleves
   const { openModal, openModalEdit } = form
 
   const handleClickAddCountry = () => {
