@@ -1,6 +1,6 @@
 import { addPurchase, addSale, setQuantityInput, toggleOpenModal } from '@/redux/features/lesbases/lesbasesSlice'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 function StockAction() {
 
@@ -15,7 +15,7 @@ function StockAction() {
     }
 
     const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target
+      const { value } = e.target
     
       dispatch(setQuantityInput(value));
     };

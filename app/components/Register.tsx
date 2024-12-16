@@ -1,9 +1,8 @@
 'use client'
 
-import { login, register, setAuthFormEmail, setAuthFormPassword, setAuthFormUsername } from '@/redux/features/auth/authSlice'
+import { register, setAuthFormEmail, setAuthFormPassword, setAuthFormUsername } from '@/redux/features/auth/authSlice'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import React from 'react'
-import { useRouter } from 'next/navigation'
 
 function Register() {
 
@@ -13,19 +12,19 @@ function Register() {
   const { email, username, password} = form
 
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+    const { value } = e.target
   
     dispatch(setAuthFormEmail(value))
   }
 
   const handleChangeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+    const { value } = e.target
   
     dispatch(setAuthFormUsername(value))
   }
 
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+    const { value } = e.target
   
     dispatch(setAuthFormPassword(value))
   }

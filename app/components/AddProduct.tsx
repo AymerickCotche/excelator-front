@@ -1,6 +1,6 @@
-import { addProduct, addPurchase, addSale, setProductNameForm, setProductPriceForm, setQuantityInput, toggleOpenModal, toggleOpenModalProduct } from '@/redux/features/lesbases/lesbasesSlice'
+import { addProduct, setProductNameForm, setProductPriceForm, toggleOpenModalProduct } from '@/redux/features/lesbases/lesbasesSlice'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 function AddProduct() {
 
@@ -14,13 +14,13 @@ function AddProduct() {
     }
 
     const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target
+      const { value } = e.target
     
       dispatch(setProductNameForm(value));
     }
 
     const handleChangePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target
+      const { value } = e.target
     
       dispatch(setProductPriceForm(value));
     };

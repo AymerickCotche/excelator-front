@@ -66,7 +66,7 @@ export default function Page() {
 
 
           <div className=" flex flex-col gap-4">
-            <h2 className=" underline underline-offset-2 font-lg">Chiffres d'affaire par pays</h2>
+            <h2 className=" underline underline-offset-2 font-lg">Chiffres d&apos;affaire par pays</h2>
 
             <div>
               <div className="grid grid-cols-4 bg-gray-200 p-1">
@@ -74,7 +74,7 @@ export default function Page() {
                   Pays
                 </p>
                 <p>
-                  Chiffre d'affaire (€)
+                  Chiffre d&apos;affaire (€)
                 </p>
                 <p>
                   Part de marché

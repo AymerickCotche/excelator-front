@@ -61,7 +61,7 @@ export default function Page() {
                 Nombre de ventes
               </p>
               <p>
-                Nombre d'achats
+                Nombre d&apos;achats
               </p>
               <p>
                 Stock
@@ -70,7 +70,7 @@ export default function Page() {
                 Prix unitaire
               </p>
               <p>
-                Chiffre d'affaire (€)
+                Chiffre d&apos;affaire (€)
               </p>
               <p>
                 Gestion Stock

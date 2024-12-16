@@ -1,4 +1,4 @@
-import { GrandraidState, insertRunner, resetRunnerForm, setRunnerForm, setRunnerformTotal, toggleAddRunner } from '@/redux/features/grandraid/grandraidSlice'
+import { insertRunner, resetRunnerForm, setRunnerForm, setRunnerformTotal, toggleAddRunner } from '@/redux/features/grandraid/grandraidSlice'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import React, { useEffect } from 'react'
 
@@ -6,12 +6,11 @@ function AddRunner() {
 
     const dispatch = useAppDispatch()
 
-    const { test } = useAppSelector(state => state.grandraid)
+
     const { runnerForm } = useAppSelector(state => state.grandraid)
     const { firstname, lastname, birth_date, meal_before, meal_after, sexe, course, shirt_size, total } = useAppSelector(state => state.grandraid.runnerForm)
     const { courses } = useAppSelector(state => state.grandraid)
     const { meals } = useAppSelector(state => state.grandraid)
-    const { runners } = useAppSelector(state => state.grandraid)
     const { sizes } = useAppSelector(state => state.grandraid)
 
     useEffect(() => {

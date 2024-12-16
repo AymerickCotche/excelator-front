@@ -1,5 +1,5 @@
 'use client'
-import Image from "next/image";
+
 import Link from "next/link";
 import { useCookies } from 'next-client-cookies'
 import Login from "./components/Login";

@@ -1,6 +1,6 @@
 import { addFacture, toggleOpenModal, setFactureFormGrossiste, setFactureFormMarchandiseHT, setFactureFormPaiementComptant,setFactureFormVenteEmportee } from '@/redux/features/facturation/facturationSlice'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 function AddFacture() {
 
@@ -14,25 +14,25 @@ function AddFacture() {
     }
 
     const handleChangeMarchandiseHT = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target
+      const { value } = e.target
     
       dispatch(setFactureFormMarchandiseHT(value));
     }
 
     const handleChangeGrossiste = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value, checked } = e.target
+      const { checked } = e.target
       
       dispatch(setFactureFormGrossiste(checked));
     }
 
     const handleChangePaiementComptant = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value, checked } = e.target
+      const { checked } = e.target
     
       dispatch(setFactureFormPaiementComptant(checked));
     }
 
     const handleChangeVenteEmportee = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value, checked } = e.target
+      const { checked } = e.target
     
       dispatch(setFactureFormVenteEmportee(checked));
     };

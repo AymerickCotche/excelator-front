@@ -1,6 +1,6 @@
-import { addCountry, setCountryFormName, setCountryFormRevenue, resetCountryForm, toggleOpenModal } from '@/redux/features/referenceabsolue/referenceabsolueSlice'
+import { addCountry, setCountryFormName, setCountryFormRevenue, toggleOpenModal } from '@/redux/features/referenceabsolue/referenceabsolueSlice'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 function AddCountry() {
 
@@ -14,13 +14,13 @@ function AddCountry() {
     }
 
     const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target
+      const { value } = e.target
     
       dispatch(setCountryFormName(value));
     }
 
     const handleChangeRevenue = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target
+      const { value } = e.target
     
       dispatch(setCountryFormRevenue(value));
     };
@@ -56,7 +56,7 @@ function AddCountry() {
                 </div>
                 <div>
                   <label htmlFor="price" className="block font-medium mb-2 text-white">
-                      Chiffre d'affaire
+                      Chiffre d&apos;affaire
                   </label>
                   <input
                       type="text"

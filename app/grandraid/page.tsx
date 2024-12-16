@@ -1,6 +1,6 @@
 'use client'
 
-import { deleteRunner, fetchAllCourses, fetchAllMeals, fetchAllRunnerCategories, fetchAllRunners, fetchAllSizes, Runner, setRunnerForm, setSelectedRunner, toggleAddRunner, toggleEditRunner } from "@/redux/features/grandraid/grandraidSlice";
+import { deleteRunner, fetchAllCourses, fetchAllMeals, fetchAllRunnerCategories, fetchAllRunners, fetchAllSizes, Runner, setSelectedRunner, toggleAddRunner, toggleEditRunner } from "@/redux/features/grandraid/grandraidSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import AddRunner from "../components/AddRunner";
 import { useEffect } from "react";

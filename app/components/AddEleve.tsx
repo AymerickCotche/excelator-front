@@ -14,43 +14,41 @@ function AddEleve() {
     }
 
     const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target
+      const { value } = e.target
     
       dispatch(setEleveFormName(value));
     }
 
     const handleChangeAge = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target
+      const { value } = e.target
     
       dispatch(setEleveFormAge(value));
     }
 
     const handleChangeSexe = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      const { name, value } = e.target
+      const { value } = e.target
     
       dispatch(setEleveFormSexe(value));
     }
 
     const handleChangeNote = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target
+      const { value } = e.target
     
       dispatch(setEleveFormNote(value));
     }
 
     const handleChangePaiementValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target
+      const { value } = e.target
     
       dispatch(setEleveFormPaidValue(value));
     }
 
     const handleChangeHasPaid = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target
-    
       dispatch(setEleveFormHasPaid(!has_paid));
     }
 
     const handleChangeMonth = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      const { name, value } = e.target
+      const { value } = e.target
     
       dispatch(setEleveFormPaidMonth(value));
     }
@@ -221,7 +219,7 @@ function AddEleve() {
                 </div>
 
               <button type="submit" className="border border-white text-white px-4 py-2 rounded">
-                  Enregistrer l'élève
+                  Enregistrer l&apos;élève
               </button>
             </form>
         </div>

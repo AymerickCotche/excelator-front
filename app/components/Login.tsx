@@ -16,13 +16,13 @@ function Login() {
   const { username, password} = form
 
   const handleChangeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+    const { value } = e.target
   
     dispatch(setAuthFormUsername(value))
   }
 
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+    const { value } = e.target
   
     dispatch(setAuthFormPassword(value))
   }
@@ -30,7 +30,7 @@ function Login() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const {payload} = await dispatch(login({username, password}))
-    const { token, expiry } = payload
+    const { token } = payload
 
     cookies.set('excelator-token', token)
     router.refresh()

@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { useEffect } from "react"
 import Image from "next/image"
 import { deleteFacture, fetchAllFacture, toggleOpenModal, setSelectedInvoice, Facture } from "@/redux/features/facturation/facturationSlice"
-import Link from "next/link"
 import AddFacture from "../components/AddFacture"
 
 export default function Page() {
@@ -40,13 +39,6 @@ export default function Page() {
 
   const handleClickInvoice = (invoice: Facture) => {
     dispatch(setSelectedInvoice(invoice))
-  }
-
-  const getDetail = (id : number) => {
-    const oneInvoice = data.find(facture => facture.id === id)
-    if (oneInvoice) return oneInvoice
-    else setSelectedInvoice(0)
-    
   }
 
   return (
