@@ -1,6 +1,6 @@
-import { addEleve, setEleveFormAge, setEleveFormHasPaid, setEleveFormPaidMonth, setEleveFormPaidValue, setEleveFormName, toggleOpenModal, setEleveFormNote, setEleveFormSexe, setSelectedEleve } from '@/redux/features/eleves/elevesSlice'
+import { addEleve, setEleveFormAge, setEleveFormHasPaid, setEleveFormPaidMonth, setEleveFormPaidValue, setEleveFormName, toggleOpenModal, setEleveFormNote, setEleveFormSexe } from '@/redux/features/eleves/elevesSlice'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 function AddEleve() {
 
@@ -43,7 +43,7 @@ function AddEleve() {
       dispatch(setEleveFormPaidValue(value));
     }
 
-    const handleChangeHasPaid = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangeHasPaid = () => {
       dispatch(setEleveFormHasPaid(!has_paid));
     }
 
