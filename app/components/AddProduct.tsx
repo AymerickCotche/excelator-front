@@ -7,7 +7,7 @@ function AddProduct() {
     const dispatch = useAppDispatch()
 
     const { form } = useAppSelector(state=> state.lesbases.product)
-    const { name, unit_price} = form
+    const { name, unit_price } = form
 
     const handleClickCloseModal = () => {
       dispatch(toggleOpenModalProduct(false))
