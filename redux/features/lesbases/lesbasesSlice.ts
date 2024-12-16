@@ -105,9 +105,10 @@ export const lesbasesSlice = createSlice({
         state.product.loading = true
       })
       .addCase(addPurchase.fulfilled, (state, action) => {
-        state.product.error = true
+        state.product.error = false
         const foundProduct = state.product.data.find(product => product.id === state.product.selectedProduct)
         if (foundProduct) foundProduct.total_purchases += Number(state.product.form.quantity)
+          state.product.form.quantity = ''
       })
       .addCase(addPurchase.rejected, (state, action) => {
         state.product.loading = false
@@ -117,9 +118,10 @@ export const lesbasesSlice = createSlice({
         state.product.loading = true
       })
       .addCase(addSale.fulfilled, (state, action) => {
-        state.product.error = true
+        state.product.loading = false
         const foundProduct = state.product.data.find(product => product.id === state.product.selectedProduct)
         if (foundProduct) foundProduct.total_sales += Number(state.product.form.quantity)
+          state.product.form.quantity = ''
       })
       .addCase(addSale.rejected, (state, action) => {
         state.product.loading = false
@@ -129,7 +131,9 @@ export const lesbasesSlice = createSlice({
         state.product.loading = true
       })
       .addCase(addProduct.fulfilled, (state, action) => {
-        state.product.error = true
+        state.product.loading = false
+        state.product.form.name = ''
+        state.product.form.unit_price = ''
         state.product.data.push(action.payload)
       })
       .addCase(addProduct.rejected, (state, action) => {
@@ -137,6 +141,18 @@ export const lesbasesSlice = createSlice({
         state.product.error = true
       })
       .addCase(addProduct.pending, (state, action) => {
+        state.product.loading = true
+      })
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        state.product.loading = false
+        state.product.data = state.product.data.filter(product => product.id !== action.payload)
+
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
+        state.product.loading = false
+        state.product.error = true
+      })
+      .addCase(deleteProduct.pending, (state, action) => {
         state.product.loading = true
       })
       
@@ -201,6 +217,19 @@ export const addProduct = createAsyncThunk(
         },
       })
       return (await response.json())
+  }
+)
+
+export const deleteProduct = createAsyncThunk(
+  'lesbases/deleteProduct',
+  async ({id}: {id : number}) => {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/lesbases/products/${id}/`, {
+        method:'DELETE',
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      return id
   }
 )
 

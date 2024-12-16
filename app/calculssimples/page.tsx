@@ -1,6 +1,6 @@
 'use client'
 
-import { fetchAllProduct, setActionType, setSelectedProduct, toggleOpenModal, toggleOpenModalProduct } from "@/redux/features/lesbases/lesbasesSlice"
+import { deleteProduct, fetchAllProduct, setActionType, setSelectedProduct, toggleOpenModal, toggleOpenModalProduct } from "@/redux/features/lesbases/lesbasesSlice"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { useEffect } from "react"
 import Image from "next/image"
@@ -34,19 +34,23 @@ export default function Page() {
     dispatch(toggleOpenModalProduct(true))
   }
 
+  const handleClickDeleteProduct = (id: number) => {
+    dispatch(deleteProduct({id}))
+  }
+
   return (
     <div className="p-6">
       <div className="text-center">
 
         <h1 className=" text-2xl text-center border-4 border-green-200 rounded px-4 py-2 inline-block bg-gradient-to-r from-yellow-200 to-green-200 font-bold">
-          Les bases essentielles
+          Calculs simples
         </h1>
       </div>
 
         <button onClick={handleClickAddProduct} className="px-2 py-1 border-2 rounded hover:bg-green-200 duration-200 mb-4">Ajouter produit</button>
 
         <div className=" flex flex-col gap-4">
-          <h2 className=" underline underline-offset-2 font-lg">Suivi des ventes</h2>
+          <h2 className=" underline underline-offset-2 font-lg">Suivi des ventes (calculs simples)</h2>
 
           <div>
             <div className="grid grid-cols-8 bg-gray-200 p-1">
@@ -105,7 +109,7 @@ export default function Page() {
                   </span>
                 </div>
                 <div className="flex gap-2 items-center">
-                  <span onClick={() => console.log('lol')} className=" hover:cursor-pointer">
+                  <span onClick={() => handleClickDeleteProduct(product.id!)} className=" hover:cursor-pointer">
                     <Image
                       src={'/delete.png'}
                       width="20"
